@@ -29,7 +29,9 @@ class StyleBorder {
               WidgetBit.inline(
                 tree,
                 WidgetPlaceholder(
-                  debugLabel: '${tree.element.localName}--$kCssBorder',
+                  debugLabel: kDebugMode
+                      ? '${tree.element.localName}--$kCssBorder'
+                      : null,
                   child: tree.build(),
                 ),
               ),
@@ -48,7 +50,8 @@ class StyleBorder {
           skip(tree);
           return WidgetPlaceholder(
             builder: (ctx, _) => _buildBorder(tree, ctx, placeholder, border),
-            debugLabel: '${tree.element.localName}--$kCssBorder',
+            debugLabel:
+                kDebugMode ? '${tree.element.localName}--$kCssBorder' : null,
           );
         },
         priority: BoxModel.border,

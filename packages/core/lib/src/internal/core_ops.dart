@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:csslib/visitor.dart' as css;
 import 'package:csslib/visitor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart'
     show

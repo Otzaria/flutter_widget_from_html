@@ -36,7 +36,9 @@ class StyleVerticalAlign {
 
           _skipBuilding[tree] = true;
           final placeholder = WidgetPlaceholder(
-            debugLabel: '${tree.element.localName}--$kCssVerticalAlign',
+            debugLabel: kDebugMode
+                ? '${tree.element.localName}--$kCssVerticalAlign'
+                : null,
             child: tree.build(),
           );
 

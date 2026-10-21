@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
@@ -49,7 +50,9 @@ class Flattener implements Flattened {
     final scopedInheritanceResolvers = _inheritanceResolvers;
     final placeholder = WidgetPlaceholder.lazy(
       child,
-      debugLabel: '${scopedTree.element.localName}--Flattener.inlineWidget',
+      debugLabel: kDebugMode
+          ? '${scopedTree.element.localName}--Flattener.inlineWidget'
+          : null,
     );
 
     placeholder.wrapWith((context, widget) {
@@ -75,10 +78,12 @@ class Flattener implements Flattened {
   void widget(Widget value) {
     _completeLoop();
 
-    final debugLabel = '${_bit.parent.element.localName}--Flattener.widget';
+    final debugLabel = kDebugMode
+        ? '${_bit.parent.element.localName}--Flattener.widget'
+        : null;
     final placeholder = WidgetPlaceholder.lazy(value, debugLabel: debugLabel);
     _widgets.add(placeholder);
-    _logger.finest('Added ${placeholder.debugLabel} widget');
+    _logger.finest(() => 'Added ${placeholder.debugLabel} widget');
   }
 
   @override
@@ -226,7 +231,8 @@ class Flattener implements Flattened {
               child: HeightPlaceholder(
                 oneEm,
                 scopedInheritanceResolvers,
-                debugLabel: '${tree.element.localName}--$oneEm',
+                debugLabel:
+                    kDebugMode ? '${tree.element.localName}--$oneEm' : null,
               ),
             );
           }
@@ -250,11 +256,11 @@ class Flattener implements Flattened {
 
         return wf.buildText(tree, resolved, span);
       },
-      debugLabel: '${tree.element.localName}--text',
+      debugLabel: kDebugMode ? '${tree.element.localName}--text' : null,
     );
 
     _widgets.add(placeholder);
-    _logger.finest('Added ${placeholder.debugLabel} widget');
+    _logger.finest(() => 'Added ${placeholder.debugLabel} widget');
   }
 
   GestureRecognizer? _getInlineRecognizer(
